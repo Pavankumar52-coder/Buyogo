@@ -97,7 +97,7 @@ Query: "What is the most common market segment for bookings?"
 Expected Answer: The most frequent value in market_segment.
 
 ## Notes
-- Ensure that you should have access to the Hugging Face model (`mistralai/Mistral-Small-24B-Instruct-2501`) before running.
+- Ensure that you should have access to the Hugging Face model (`google/flan-t5-small`) before running.
 - You should also have access token to use the abive model.
 - Adjust FAISS indexing if working with large datasets.
 
