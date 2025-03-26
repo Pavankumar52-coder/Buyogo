@@ -52,31 +52,49 @@ print(f"FastAPI running at: {public_url}")
 **URL:** `/analytics`  
 **Method:** `POST`  
 **Response:**
-```json
-{
-  "cancellation_rate": "20.35%",
-  "top_countries": {
-    "USA": 5000,
-    "UK": 4200
-  }
-}
-```
 
 ### Q&A Endpoint
 **URL:** `/ask`  
 **Method:** `POST`  
 **Request:**
-```json
-{
-  "query": "What is the total revenue for July 2017?"
-}
-```
-**Response:**
-```json
-{
-  "response": "The total revenue for July 2017 was approximately $1.2M."
-}
-```
+
+Sample Test Queries & Expected Answers:
+The following queries covers different aspects of booking analytics and RAG-based question answering.
+
+1. Revenue Trends:
+Query: "Show me total revenue for July 2017."
+Expected Answer: Sum of adr * (stays_in_week_nights + stays_in_weekend_nights) for bookings in July 2017.
+
+Query: "What was the average daily rate (ADR) for August 2016?"
+Expected Answer: Mean adr for bookings in August 2016.
+
+2. Cancellation Analysis:
+Query: "What percentage of bookings were canceled?"
+Expected Answer: (sum(is_canceled) / total_bookings) * 100
+
+Query: "Which month had the highest cancellation rate?"
+Expected Answer: Month with the highest (canceled bookings / total bookings) * 100.
+
+3. Geographical Insights:
+Query: "Which country had the most bookings?"
+Expected Answer: The country with the highest count in the country column.
+
+Query: "Which locations had the highest booking cancellations?"
+Expected Answer: The country with the highest sum of is_canceled == 1.
+
+4. Booking Lead Time Analysis:
+Query: "What is the average lead time for confirmed bookings?"
+Expected Answer: Mean of lead_time where is_canceled == 0.
+
+Query: "What is the distribution of lead times for bookings?"
+Expected Answer: A histogram of lead_time.
+
+5. Additional Analytics:
+Query: "What is the average price of a hotel booking?"
+Expected Answer: Mean adr.
+
+Query: "What is the most common market segment for bookings?"
+Expected Answer: The most frequent value in market_segment.
 
 ## Notes
 - Ensure that you should have access to the Hugging Face model (`mistralai/Mistral-Small-24B-Instruct-2501`) before running.
